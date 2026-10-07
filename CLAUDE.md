@@ -21,6 +21,8 @@ Assets/_Project/
 ├─ Game/   Kodiak.Game.asmdef     MonoBehaviour, 뷰, 어댑터. Core, InputSystem 참조
 ├─ Data/                          ScriptableObject 에셋
 ├─ Art/                           AI 생성 이미지 (AssetPostprocessor 대상)
+├─ Prefabs/                       프리팹 (Characters, Projectiles, Props)
+├─ Scenes/                        씬
 ├─ Editor/ Kodiak.Editor.asmdef   에디터 전용 툴, 임포터. 네임스페이스는 Kodiak.EditorTools
 └─ Tests/EditMode/ Kodiak.Tests.EditMode.asmdef   Core 대상 NUnit 테스트
 ```
