@@ -1,0 +1,17 @@
+{
+    "name": "Kodiak.Game",
+    "rootNamespace": "Kodiak.Game",
+    "references": [
+        "Kodiak.Core",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
