@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 3499375126283146519}
   - component: {fileID: -1997438798026664114}
   - component: {fileID: 718653710932915732}
+  - component: {fileID: 8157853727236407517}
+  - component: {fileID: 3224641122889209116}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -231,6 +233,35 @@ MonoBehaviour:
   aimAction: {fileID: -6665817876127978069, guid: f012ba430b19a0b4788072b50bb793f1, type: 3}
   aimCamera: {fileID: 0}
   visual: {fileID: 2294371217229041085}
+--- !u!114 &8157853727236407517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4562184529649916461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e13049ed2e14cd4bb6e2579d5def0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Kodiak.Game::Kodiak.Game.Weapons.PlayerWeapon
+  fireAction: {fileID: 505080098903825923, guid: f012ba430b19a0b4788072b50bb793f1, type: 3}
+  reloadAction: {fileID: 5955932217782131664, guid: f012ba430b19a0b4788072b50bb793f1, type: 3}
+  weaponData: {fileID: 11400000, guid: f5245373e98758646a7e63bcdb5240e0, type: 2}
+  startingReserveAmmo: 90
+--- !u!114 &3224641122889209116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4562184529649916461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e43d065a046d3d4c98bef0a4c8d2b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Kodiak.Game::Kodiak.Game.Weapons.WeaponDebugHud
+  weapon: {fileID: 8157853727236407517}
 --- !u!1 &6946681594697490718
 GameObject:
   m_ObjectHideFlags: 0
