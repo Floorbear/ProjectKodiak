@@ -54,6 +54,11 @@ Assets/_Project/
 4. Core 수정 시 EditMode 테스트 실행 후 결과 보고
 5. 작업이 끝나면 변경 내용 요약과 함께, 내가 직접 확인할 것(플레이 테스트 항목)을 알려줄 것
 
+## MCP 검증 주의
+- MCP로 만든 시각 에셋(프리팹, 스프라이트)은 수치 검증만으로 끝내지 말 것. 실제 크기를 `Renderer.bounds` / `Sprite.bounds`로 확인하고, 카메라 캡처로 화면에 보이는지 확인
+- 플레이 모드를 끈 뒤 콘솔은 종료가 끝난 것(`isPlayingOrWillChangePlaymode == false`)을 확인하고 읽을 것. 종료 중 발생하는 에러(OnDestroy, 풀 정리 등)를 놓치기 쉬움
+- 플레이 모드 입력 주입(`InputSystem.QueueStateEvent`)은 Unity 창에 포커스가 있어야 액션까지 전달됨. 필요하면 Game 뷰 클릭을 요청
+
 ## Git
 - 커밋·푸시는 내가 요청할 때만
 - 커밋 메시지는 한국어, 한 작업 단위로 작게
