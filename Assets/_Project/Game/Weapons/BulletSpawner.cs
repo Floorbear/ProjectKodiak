@@ -43,7 +43,8 @@ namespace Kodiak.Game.Weapons
         {
             WeaponData data = weapon.Data;
             Bullet bullet = pool.Get();
-            bullet.Launch(muzzle.position, muzzle.right, data.BulletSpeed, data.BulletLifetime);
+            // 쏜 사람 = 이 컴포넌트가 붙은 루트. 총알이 자기 몸에 맞지 않게 넘긴다
+            bullet.Launch(muzzle.position, muzzle.right, data.BulletSpeed, data.BulletLifetime, transform);
         }
     }
 }
