@@ -290,7 +290,7 @@ namespace Kodiak.Tests.EditMode.Weapons
         }
 
         [Test]
-        public void 재장전중에_발사해도_재장전은_계속된다()
+        public void 재장전중에_약실탄을_쏘면_재장전이_취소된다()
         {
             var weapon = CreateWeapon();
             FireAndWait(weapon);
@@ -298,7 +298,58 @@ namespace Kodiak.Tests.EditMode.Weapons
             weapon.TryStartReload();
             weapon.TryFire();
 
-            Assert.IsTrue(weapon.IsReloading);
+            Assert.IsFalse(weapon.IsReloading);
+            Assert.IsFalse(weapon.IsChambered);
+            Assert.AreEqual(0, weapon.MagazineAmmo);   // 뽑은 탄창은 빠진 채로
+        }
+
+        [Test]
+        public void 재장전이_취소되면_시간이_지나도_탄창이_차지_않는다()
+        {
+            var weapon = CreateWeapon();
+            FireAndWait(weapon);
+
+            weapon.TryStartReload();
+            weapon.TryFire();
+            weapon.Tick(ReloadTime + ChamberTime);
+
+            Assert.AreEqual(0, weapon.MagazineAmmo);
+            Assert.IsFalse(weapon.IsChambered);
+        }
+
+        [Test]
+        public void 재장전이_취소된_뒤_다시_재장전하면_빈총_재장전이_된다()
+        {
+            var weapon = CreateWeapon();
+            FireAndWait(weapon);
+
+            weapon.TryStartReload();
+            weapon.TryFire();
+            weapon.Tick(FireInterval);
+
+            Assert.IsTrue(weapon.TryStartReload());
+            weapon.Tick(ReloadTime);
+
+            Assert.IsTrue(weapon.IsReloading);   // 약실이 비었으니 장전손잡이 단계가 남음
+
+            weapon.Tick(ChamberTime);
+
+            Assert.IsFalse(weapon.IsReloading);
+            Assert.IsTrue(weapon.IsChambered);
+            Assert.AreEqual(Capacity - 1, weapon.MagazineAmmo);
+        }
+
+        [Test]
+        public void 재장전_취소로_탄의_총량은_변하지_않는다()
+        {
+            var weapon = CreateWeapon(out var reserve);
+            FireAndWait(weapon);
+            int before = weapon.LoadedAmmo + reserve.Count;
+
+            weapon.TryStartReload();
+            weapon.TryFire();   // 1발 소모
+
+            Assert.AreEqual(before - 1, weapon.LoadedAmmo + reserve.Count);
         }
 
         // ── 빈 총 재장전 (약실이 비었을 때) ──────────────
@@ -331,24 +382,7 @@ namespace Kodiak.Tests.EditMode.Weapons
             weapon.Tick(ReloadTime);
 
             Assert.IsFalse(weapon.TryFire());
-        }
-
-        [Test]
-        public void 택티컬재장전_중_약실탄을_쏘면_장전손잡이_시간이_추가된다()
-        {
-            var weapon = CreateWeapon();
-            FireAndWait(weapon);
-
-            weapon.TryStartReload();
-            weapon.TryFire();   // 약실이 비게 됨
-            weapon.Tick(ReloadTime);
-
-            Assert.IsTrue(weapon.IsReloading);
-
-            weapon.Tick(ChamberTime);
-
-            Assert.IsFalse(weapon.IsReloading);
-            Assert.IsTrue(weapon.IsChambered);
+            Assert.IsTrue(weapon.IsReloading);   // 쏘지 못했으니 취소되지도 않는다
         }
 
         [Test]

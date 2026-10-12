@@ -3,13 +3,14 @@ using System;
 namespace Kodiak.Core.Weapons
 {
     // 무기 하나의 약실/탄창/재장전 상태. 시간은 Tick(deltaTime)으로 바깥에서 넣어준다 (Time.deltaTime 직접 사용 금지).
-    // 재장전 = [탄창 교체 ReloadTime] + (교체 시점에 약실이 비어 있으면) [장전손잡이 ChamberTime]
+    // 재장전 = [탄창 교체 ReloadTime] + (약실이 비어 있으면) [장전손잡이 ChamberTime]
+    // 탄창 교체 중에 약실 탄을 쏘면 재장전이 취소된다 (탄창은 빠진 채로)
     public sealed class WeaponState
     {
         private enum ReloadPhase
         {
             None,
-            SwappingMagazine,   // 탄창이 빠져 있음. 약실 탄은 쏠 수 있음
+            SwappingMagazine,   // 탄창이 빠져 있음. 약실 탄은 쏠 수 있음 (쏘면 재장전 취소)
             Chambering,         // 새 탄창은 꽂혔고 장전손잡이를 당기는 중
         }
 
@@ -46,8 +47,14 @@ namespace Kodiak.Core.Weapons
             IsChambered = false;
             fireCooldown = spec.FireInterval;   // += 가 아니라 = : 오래 쉬어도 연사가 모이지 않게
 
-            // 재장전 중에는 탄창이 빠져 있어서 다음 탄이 들어오지 않는다
-            if (reloadPhase == ReloadPhase.None && MagazineAmmo > 0)
+            // 재장전 중(탄창 교체 단계)에 쐈으면 재장전 취소. 뽑은 탄창은 빠진 채로 남아 빈 총이 된다
+            if (reloadPhase != ReloadPhase.None)
+            {
+                reloadPhase = ReloadPhase.None;
+                return true;
+            }
+
+            if (MagazineAmmo > 0)
             {
                 MagazineAmmo--;
                 IsChambered = true;
@@ -103,7 +110,7 @@ namespace Kodiak.Core.Weapons
                 case ReloadPhase.SwappingMagazine:
                     MagazineAmmo = reserve.Take(spec.MagazineCapacity);
 
-                    // 교체가 끝난 시점에 약실을 본다. 재장전 중 약실 탄을 쐈다면 여기서 비어 있다
+                    // 빈 총이면 장전손잡이 단계로
                     if (!IsChambered && MagazineAmmo > 0)
                     {
                         reloadPhase = ReloadPhase.Chambering;
