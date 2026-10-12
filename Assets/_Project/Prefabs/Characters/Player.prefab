@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 718653710932915732}
   - component: {fileID: 8157853727236407517}
   - component: {fileID: 3224641122889209116}
+  - component: {fileID: 5263662615367123920}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -262,6 +263,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Kodiak.Game::Kodiak.Game.Weapons.WeaponDebugHud
   weapon: {fileID: 8157853727236407517}
+--- !u!114 &5263662615367123920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4562184529649916461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed57b143cbbbf440bd6be44029bd389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Kodiak.Game::Kodiak.Game.Weapons.BulletSpawner
+  weapon: {fileID: 8157853727236407517}
+  muzzle: {fileID: 4933897840258813922}
+  pool: {fileID: 0}
 --- !u!1 &6946681594697490718
 GameObject:
   m_ObjectHideFlags: 0

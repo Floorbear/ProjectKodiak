@@ -15,6 +15,7 @@ namespace Kodiak.Game.Weapons
         [SerializeField, Min(0), Tooltip("인벤토리가 생기기 전 임시 예비 탄약")]
         private int startingReserveAmmo = 90;
 
+        public WeaponData Data => weaponData;
         public WeaponState State { get; private set; }
         public AmmoPool Reserve { get; private set; }
 
