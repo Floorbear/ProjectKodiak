@@ -39,6 +39,19 @@ namespace Kodiak.Game.Weapons
             }
         }
 
+        // 에디터 전용. 이 오브젝트를 선택했을 때 Scene 뷰에 그린다. 총구 위치·방향을 조정할 때 보조선으로 쓴다.
+        private void OnDrawGizmosSelected()
+        {
+            if (muzzle == null)
+            {
+                return;
+            }
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(muzzle.position, 0.03f);
+            Gizmos.DrawLine(muzzle.position, muzzle.position + muzzle.right * 0.5f);
+        }
+
         private void SpawnBullet()
         {
             WeaponData data = weapon.Data;
