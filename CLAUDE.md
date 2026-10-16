@@ -26,6 +26,7 @@ Assets/_Project/
 ├─ Game/   Kodiak.Game.asmdef     MonoBehaviour, 뷰, 어댑터. → Core, Unity.InputSystem 참조
 ├─ Data/                          ScriptableObject 에셋 (Input Actions 포함)
 ├─ Art/                           게임용으로 가공된 스프라이트만 (AssetPostprocessor 대상)
+├─ Animations/                    애니메이션 클립, Animator Controller (캐릭터별 하위 폴더)
 ├─ Prefabs/                       프리팹 (Characters, Projectiles, Props)
 ├─ Scenes/                        씬
 ├─ Editor/ Kodiak.Editor.asmdef   에디터 전용 툴, 임포터. 네임스페이스는 Kodiak.EditorTools. → Core, Game 참조
